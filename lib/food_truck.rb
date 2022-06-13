@@ -1,5 +1,4 @@
 class FoodTruck
-
   attr_reader :name, :inventory
 
   def initialize(name)
@@ -7,19 +6,19 @@ class FoodTruck
     @inventory = Hash.new(0)
   end
 
-  def check_stock
-    @inventory.values.sum
+  def check_stock(item)
+    @inventory[item]
   end
 
-  def stock(key, value)
-    if @inventory == {}
-      @inventory = {
-      key => value
-      }
-    elsif @inventory.key?(key)
-      @inventory[key] += value
-    elsif @inventory.empty? == false
-      @inventory[key] = value
+  def stock(item, amount)
+    @inventory[item] += amount
+  end
+
+  def potential_revenue
+    revenue = 0
+    @inventory.each do |key, value|
+      revenue += key.price * value
     end
+    revenue
   end
 end
